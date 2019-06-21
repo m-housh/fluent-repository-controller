@@ -16,7 +16,7 @@ import FluentRepository
  Handles api routes using a `FluentRepository`.
  
 */
-public protocol RepositoryRouteController {
+public protocol FluentRepositoryController {
     
     /// The `FluentRepository` type used for database queries.
     associatedtype Repository: FluentRepository
@@ -43,8 +43,9 @@ public protocol RepositoryRouteController {
     func delete(_ request: Request) throws -> Future<HTTPStatus>
 }
 
-extension RepositoryRouteController where Self: RouteCollection, Repository.DBModel: Parameter, Repository.DBModel: RequestDecodable {
+extension FluentRepositoryController where Self: RouteCollection, Repository.DBModel: Parameter, Repository.DBModel: RequestDecodable {
     
+    /// - seealso: `RouteCollection`
     public func boot(router: Router) {
         router.get(path, use: all)
         router.post(Repository.DBModel.self, at: path, use: save)

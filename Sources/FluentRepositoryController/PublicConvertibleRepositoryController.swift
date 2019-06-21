@@ -9,7 +9,7 @@ import Vapor
 import FluentRepository
 
 
-public class PublicConvertibleRepositoryController<R>: RepositoryRouteController where R: FluentRepository, R.DBModel: Content, R.DBModel: Parameter, R.DBModel.ResolvedParameter == Future<R.DBModel>, R: Service, R.DBModel: PublicConvertible {
+public class PublicConvertibleRepositoryController<R>: FluentRepositoryController where R: FluentRepository, R.DBModel: Content, R.DBModel: Parameter, R.DBModel.ResolvedParameter == Future<R.DBModel>, R: Service, R.DBModel: PublicConvertible {
     
     public typealias Repository = R
     public typealias ReturnType = R.DBModel.PublicType
